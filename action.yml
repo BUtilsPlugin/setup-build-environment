@@ -1,0 +1,21 @@
+name: 'Setup Build Environment'
+description: 'Sets up a default build environment for a Gradle Project with Java'
+inputs:
+  jdk:
+    description: 'OpenJDK Distribution to use.' # See https://github.com/actions/setup-java#supported-distributions
+    default: 'temurin'
+    required: true
+  jdk-version:
+    description: 'The jdk version to use.'
+    default: '17'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Java ${{ inputs.jdk-version }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: ${{ inputs.jdk }}
+        java-version: ${{ inputs.jdk-version }}
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
